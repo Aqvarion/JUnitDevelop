@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_junitdevelop" default="compile.module.junitdevelop">
+  <dirname property="module.junitdevelop.basedir" file="${ant.file.module_junitdevelop}"/>
+  
+  <property name="module.jdk.home.junitdevelop" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.junitdevelop" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.junitdevelop" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.junitdevelop" value="-encoding UTF-8 -source 11 -target 11 ${compiler.args}"/>
+  
+  <property name="junitdevelop.output.dir" value="${module.junitdevelop.basedir}/../out/production/JUnitDevelop"/>
+  <property name="junitdevelop.testoutput.dir" value="${module.junitdevelop.basedir}/../out/test/JUnitDevelop"/>
+  
+  <path id="junitdevelop.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="junitdevelop.module.production.classpath">
+    <path refid="${module.jdk.classpath.junitdevelop}"/>
+  </path>
+  
+  <path id="junitdevelop.runtime.production.module.classpath">
+    <pathelement location="${junitdevelop.output.dir}"/>
+  </path>
+  
+  <path id="junitdevelop.module.classpath">
+    <path refid="${module.jdk.classpath.junitdevelop}"/>
+    <pathelement location="${junitdevelop.output.dir}"/>
+  </path>
+  
+  <path id="junitdevelop.runtime.module.classpath">
+    <pathelement location="${junitdevelop.testoutput.dir}"/>
+    <pathelement location="${junitdevelop.output.dir}"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.junitdevelop">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.junitdevelop">
+    <patternset refid="excluded.from.module.junitdevelop"/>
+  </patternset>
+  
+  
+  <target name="compile.module.junitdevelop" depends="compile.module.junitdevelop.production,compile.module.junitdevelop.tests" description="Compile module JUnitDevelop"/>
+  
+  <target name="compile.module.junitdevelop.production" depends="register.custom.compilers" description="Compile module JUnitDevelop; production classes"/>
+  
+  <target name="compile.module.junitdevelop.tests" depends="register.custom.compilers,compile.module.junitdevelop.production" description="compile module JUnitDevelop; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.junitdevelop" description="cleanup module">
+    <delete dir="${junitdevelop.output.dir}"/>
+    <delete dir="${junitdevelop.testoutput.dir}"/>
+  </target>
+</project>
